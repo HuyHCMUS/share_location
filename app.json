@@ -9,12 +9,26 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.simplemap",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.yourcompany.simplemap",
+      "config": {
+        "googleMaps": {
+          "useEmbedded": true
+        }
       }
     },
     "web": {
@@ -32,6 +46,18 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app needs access to your photos to set your profile picture."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
       ]
     ],
     "experiments": {
@@ -39,3 +65,7 @@
     }
   }
 }
+
+
+
+

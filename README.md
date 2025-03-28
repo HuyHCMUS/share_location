@@ -1,50 +1,142 @@
-# Welcome to your Expo app 👋
+# Simple Map Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A real-time location sharing mobile application built with Expo, React Native, and Supabase.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Real-time location tracking and sharing
+- User authentication (login/register)
+- User profile management
+- Interactive map view of all users
+- User list with location details
+- Profile customization with avatar upload
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- **Frontend Framework**: React Native with Expo
+- **Styling**: TailwindCSS (via NativeWind)
+- **Backend/Database**: Supabase
+- **Maps**: react-native-maps
+- **Location Services**: expo-location
+- **File Storage**: Supabase Storage
+- **Navigation**: Expo Router
+- **Authentication**: Supabase Auth
 
-   ```bash
-    npx expo start
-   ```
+## Prerequisites
 
-In the output, you'll find options to open the app in a
+- Node.js (v14 or higher)
+- npm or yarn
+- Expo CLI
+- iOS Simulator (for iOS development)
+- Android Studio & Android SDK (for Android development)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Installation
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+1. Clone the repository:
 ```bash
-npm run reset-project
+git clone [repository-url]
+cd simple-map
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
+```bash
+npm install
+```
 
-## Learn more
+3. Start the development server:
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+simple-map/
+├── app/
+│   ├── (auth)/
+│   │   ├── login.tsx
+│   │   └── register.tsx
+│   ├── (tabs)/
+│   │   ├── home.tsx
+│   │   ├── users.tsx
+│   │   ├── profile.tsx
+│   │   └── _layout.tsx
+│   ├── lib/
+│   │   └── supabase.ts
+│   └── _layout.tsx
+├── assets/
+└── docs/
+```
 
-## Join the community
+## Key Components
 
-Join our community of developers creating universal apps.
+### Home Screen (`app/(tabs)/home.tsx`)
+- Displays interactive map with real-time user locations
+- Handles location permissions and updates
+- Real-time location sync with Supabase
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Users Screen (`app/(tabs)/users.tsx`)
+- Lists all users with their latest locations
+- Shows user profiles with avatars
+- Displays location update timestamps
+
+### Profile Screen (`app/(tabs)/profile.tsx`)
+- User profile management
+- Avatar upload functionality
+- Profile information updates
+
+## Database Schema
+
+### Tables
+
+1. `profiles`
+   - `id`: UUID (Primary Key)
+   - `full_name`: Text
+   - `phone`: Text
+   - `avatar_url`: Text
+   - `updated_at`: Timestamp
+
+2. `user_locations`
+   - `user_id`: UUID (Foreign Key)
+   - `latitude`: Float
+   - `longitude`: Float
+   - `updated_at`: Timestamp
+
+## Environment Setup
+
+1. iOS Development:
+   - Install Xcode
+   - Set up iOS Simulator
+
+2. Android Development:
+   - Install Android Studio
+   - Set up Android Emulator
+   - Configure Android SDK
+
+## Permissions
+
+The app requires the following permissions:
+
+- Location access (foreground)
+- Camera/Photo Library (for avatar upload)
+- Internet access
+
+## Building for Production
+
+### iOS
+```bash
+eas build --platform ios
+```
+
+### Android
+```bash
+eas build --platform android
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
