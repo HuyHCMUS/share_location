@@ -34,7 +34,7 @@ A real-time location sharing mobile application built with Expo, React Native, a
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone [https://github.com/HuyHCMUS/share_location.git]
 cd simple-map
 ```
 
@@ -51,7 +51,7 @@ npx expo start
 ## Project Structure
 
 ```
-simple-map/
+share_location/
 ├── app/
 │   ├── (auth)/
 │   │   ├── login.tsx
