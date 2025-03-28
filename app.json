@@ -13,6 +13,9 @@
       "bundleIdentifier": "com.yourcompany.simplemap",
       "config": {
         "usesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -21,15 +24,20 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO"
       ],
       "package": "com.yourcompany.simplemap",
       "config": {
         "googleMaps": {
           "useEmbedded": true
         }
-      }
+      },
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -62,10 +70,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "99ac5a40-48f6-4516-a8c0-a3d3b6ff16e5"
+      }
+    },
+    "owner": "huyle03",
+    "updates": {
+      "url": "https://u.expo.dev/99ac5a40-48f6-4516-a8c0-a3d3b6ff16e5"
     }
   }
 }
-
-
-
-
