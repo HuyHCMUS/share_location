@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { View, Text, Alert, Platform } from 'react-native';
+import { View, Text, Alert, Platform, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import supabase from '@/app/lib/supabase';
@@ -12,6 +12,7 @@ type UserLocation = {
   updated_at: string;
   profiles: {
     full_name: string | null;
+    avatar_url: string | null; // Thêm avatar_url
   } | null;
 };
 
@@ -106,7 +107,8 @@ export default function Home() {
         longitude,
         updated_at,
         profiles (
-          full_name
+          full_name,
+          avatar_url
         )
       `)
       .neq('user_id', user.id)
@@ -174,12 +176,17 @@ export default function Home() {
             }}
             title={user.profiles?.full_name || 'Unnamed User'}
           >
-            <View style={{
-              backgroundColor: '#22c55e',
-              padding: 8,
-              borderRadius: 50,
-            }}>
-              <FontAwesome name="user" size={20} color="white" />
+            <View className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
+              {user.profiles?.avatar_url ? (
+                <Image
+                  source={{ uri: user.profiles.avatar_url }}
+                  className="w-full h-full"
+                />
+              ) : (
+                <View className="w-full h-full bg-green-500 items-center justify-center">
+                  <FontAwesome name="user" size={20} color="white" />
+                </View>
+              )}
             </View>
           </Marker>
         ))}
@@ -187,6 +194,7 @@ export default function Home() {
     </View>
   );
 }
+
 
 
 
