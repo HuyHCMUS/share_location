@@ -1,14 +1,17 @@
 import { RouteCoordinates } from '@/app/types/location';
-
+type DirectionsResult = {
+  coordinates: RouteCoordinates;
+  distance: number;
+};
 class DirectionsService {
-  private static API_KEY = '5b3ce3597851110001cf6248dd00a9cd533f4e01a2aa5af98e9151e6';
+  private static apiKey = process.env.EXPO_PUBLIC_OPENROUTE_API_KEY!;
 
   static async getDirections(
     startLat: number,
     startLng: number,
     destLat: number,
     destLng: number
-  ): Promise<RouteCoordinates> {
+  ): Promise<DirectionsResult> {
     const response = await fetch(
       'https://api.openrouteservice.org/v2/directions/driving-car',
       {
@@ -16,7 +19,7 @@ class DirectionsService {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': this.API_KEY
+          'Authorization': this.apiKey
         },
         body: JSON.stringify({
           coordinates: [[startLng, startLat], [destLng, destLat]]
@@ -33,12 +36,14 @@ class DirectionsService {
     if (!json.routes?.length) {
       throw new Error('No route available');
     }
-
+    
     const decodedGeometry = this.decodePolyline(json.routes[0].geometry);
-    return decodedGeometry.map((coord: [number, number]) => ({
+    const coordinates =decodedGeometry.map((coord: [number, number]) => ({
       latitude: coord[0],
       longitude: coord[1]
     }));
+    const distance = json.routes[0].summary.distance /1000;
+    return { coordinates, distance };
   }
 
   private static decodePolyline(str: string, precision = 5): Array<[number, number]> {

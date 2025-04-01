@@ -13,6 +13,7 @@ export default function Home() {
   const { location, errorMsg, otherUsers } = useLocation();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [routeCoordinates, setRouteCoordinates] = useState<RouteCoordinates>([]);
+  const [routeDistance, setRouteDistance] = useState<number | undefined>(undefined);
 
   const showRoute = async (userId: string) => {
     if (!location) return;
@@ -21,13 +22,14 @@ export default function Home() {
     if (!selectedUser) return;
 
     try {
-      const coordinates = await DirectionsService.getDirections(
+      const result = await DirectionsService.getDirections(
         location.coords.latitude,
         location.coords.longitude,
         selectedUser.latitude,
         selectedUser.longitude
       );
-      setRouteCoordinates(coordinates);
+      setRouteCoordinates(result.coordinates);
+      setRouteDistance(result.distance);
     } catch (error) {
       Alert.alert('Error', 'Failed to get directions');
     }
@@ -88,7 +90,9 @@ export default function Home() {
           onClose={() => {
             setSelectedUserId(null);
             setRouteCoordinates([]);
+            setRouteDistance(undefined);
           }}
+          routeDistance={routeDistance}
         />
       )}
     </View>
